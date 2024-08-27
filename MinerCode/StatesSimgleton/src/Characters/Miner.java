@@ -2,7 +2,7 @@ import java.util.Random;
 
 // Classe principal do minerador
 public class Miner {
-    private MinerState state;
+    private State state;
     private float thirst;
     private float maxThirst;
     private int gold;
@@ -44,8 +44,10 @@ public class Miner {
         setIsSleep(false);
     }
 
-    public void setState(MinerState state) {
-        this.state = state;
+    public void chanceState(State newState) {
+        state.exit(this);
+        state=newState;
+        state.enter(this);
     }
 
     public void PrintOnConsole(String text) {
