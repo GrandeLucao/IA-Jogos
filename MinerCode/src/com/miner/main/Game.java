@@ -1,4 +1,7 @@
-public class App {
+package com.miner.main;
+import com.miner.chars.*;
+
+public class Game {
 
 
     public static void main(String[] args) throws Exception {    

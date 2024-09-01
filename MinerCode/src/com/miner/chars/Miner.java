@@ -1,8 +1,13 @@
+package com.miner.chars;
 import java.util.Random;
 
-// Classe principal do minerador
+import com.miner.states.*;
+import com.miner.states.minerStates.*;
+
+
 public class Miner {
-    private State state;
+    private StateMachine<Miner> stateMach;
+
     private float thirst;
     private float maxThirst;
     private int gold;
@@ -17,37 +22,22 @@ public class Miner {
         this.gold = 0;
         this.goldInBank = 0;
         this.pocketSize = pocketSize;
-        this.state = new MiningState(); // Estado inicial
+        stateMach= new StateMachine<Miner>(this);
+        stateMach.setCurrentState(MiningState.getInstance());
+        stateMach.setGlobalState(minerGlobalState.getInstance());
     }
 
     public void BeginDay() {
         Random randoNumb = new Random();
         goal = randoNumb.nextInt(8, 12);
 
-        // Loop para processar o dia
-        while (true) {
-            state.handle(this); // Processa o estado atual
-
-            // Se o estado mudar para GoRestState, encerra o dia
-            if (state instanceof GoRestState) {
-                isSleep=true;
-            }
-
-            break;
-        }
     }
 
     public void reset(){
         Random randoNumb = new Random();
         goal = randoNumb.nextInt(8, 12);
-        setState(new MiningState());
+        //changeState(MiningState.getInstance());
         setIsSleep(false);
-    }
-
-    public void chanceState(State newState) {
-        state.exit(this);
-        state=newState;
-        state.enter(this);
     }
 
     public void PrintOnConsole(String text) {
@@ -69,7 +59,6 @@ public class Miner {
     public float getThirst() {
         return thirst;
     }
-
     public void setThirst(float thirst) {
         this.thirst = thirst;
     }
@@ -77,7 +66,6 @@ public class Miner {
     public Boolean getisSleep(){
         return isSleep;
     }
-
     public void setIsSleep(boolean sleep){
         this.isSleep=sleep;
     }
@@ -85,7 +73,6 @@ public class Miner {
     public float getMaxThirst() {
         return maxThirst;
     }
-
     public int getGold() {
         return gold;
     }
@@ -93,7 +80,6 @@ public class Miner {
     public void setGold(int gold) {
         this.gold = gold;
     }
-
     public int getGoldInBank() {
         return goldInBank;
     }
@@ -101,12 +87,15 @@ public class Miner {
     public void setGoldInBank(int goldInBank) {
         this.goldInBank = goldInBank;
     }
-
     public int getPocketSize() {
         return pocketSize;
     }
 
     public int getGoal() {
         return goal;
+    }
+
+    public StateMachine<Miner> getStateMach() {
+        return stateMach;
     }
 }
