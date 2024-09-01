@@ -5,8 +5,10 @@ import com.miner.states.*;
 import com.miner.states.minerStates.*;
 
 
-public class Miner {
+public class Miner extends Entity{
     private StateMachine<Miner> stateMach;
+
+    private boolean BillyWorked=false;
 
     private float thirst;
     private float maxThirst;
@@ -17,6 +19,7 @@ public class Miner {
     private Boolean isSleep=false;
 
     public Miner(float thirst, int pocketSize) {
+        super("Miner");
         this.maxThirst = thirst;
         this.thirst = maxThirst;
         this.gold = 0;
@@ -25,6 +28,11 @@ public class Miner {
         stateMach= new StateMachine<Miner>(this);
         stateMach.setCurrentState(MiningState.getInstance());
         stateMach.setGlobalState(minerGlobalState.getInstance());
+    }
+
+    @Override
+    public void update(){
+        stateMach.update();
     }
 
     public void BeginDay() {
@@ -45,12 +53,6 @@ public class Miner {
                             +text
                             +"\n//////////////////////////////// \n");
     }
-
-
-
-
-
-
 
 
 
@@ -93,9 +95,23 @@ public class Miner {
 
     public int getGoal() {
         return goal;
+    }    
+
+    public boolean isBillyWorked() {
+        return BillyWorked;
+    }
+
+    public void setBillyWorked(boolean billyWorked) {
+        BillyWorked = billyWorked;
     }
 
     public StateMachine<Miner> getStateMach() {
         return stateMach;
     }
+
+    @Override
+    public StateMachine<Miner> getStateMachine() {
+        return stateMach;
+    }
+
 }

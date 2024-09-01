@@ -2,8 +2,8 @@ package com.miner.states.minerStates;
 
 import java.util.Random;
 
-import com.miner.chars.Miner;
-import com.miner.states.State;
+import com.miner.chars.*;
+import com.miner.states.*;
 
 public class minerGlobalState  implements State<Miner> {
 
@@ -26,7 +26,14 @@ public class minerGlobalState  implements State<Miner> {
 
     @Override
     public void Exit(Miner npc) {
-        
+
+    }
+
+    public boolean onGetMessage(Miner miner, Messages message){
+        if(message.getStringMessage().compareTo("Job Done")==0){
+            miner.setBillyWorked(true);
+            return true;
+        }else{return false;}
     }
 
     public static minerGlobalState getInstance(){

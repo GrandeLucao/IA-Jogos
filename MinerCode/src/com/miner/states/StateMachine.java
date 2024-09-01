@@ -1,5 +1,7 @@
 package com.miner.states;
 
+import com.miner.chars.Messages;
+
 public class StateMachine<NPC> {
     private NPC myOwner;
     private State<NPC> currentState;
@@ -37,7 +39,15 @@ public class StateMachine<NPC> {
     }
 
 
-
+    public boolean treatMessage(Messages message){
+        if(currentState.onGetMessage(myOwner, message)){
+            return true;
+        }
+        if(globalState.onGetMessage(myOwner, message) && globalState!=null){
+            return true;
+        }
+        return false;
+    }
 
     public State<NPC> getCurrentState() {
         return currentState;

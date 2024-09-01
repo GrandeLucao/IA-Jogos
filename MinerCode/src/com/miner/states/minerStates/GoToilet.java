@@ -1,7 +1,8 @@
 package com.miner.states.minerStates;
 
-import com.miner.chars.Miner;
-import com.miner.states.State;
+
+import com.miner.chars.*;
+import com.miner.states.*;
 
 public class GoToilet  implements State<Miner> {
 
@@ -20,6 +21,11 @@ public class GoToilet  implements State<Miner> {
 
     @Override
     public void Exit(Miner npc) {
+    }
+
+    @Override
+    public boolean onGetMessage(Miner npc, Messages message) {
+        throw new UnsupportedOperationException("Error");
     }
 
     public static GoToilet getInstance(){

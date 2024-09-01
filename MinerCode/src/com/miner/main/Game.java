@@ -16,14 +16,6 @@ public class Game {
             System.out.println("----------------------------------------------------");
             System.out.println("");
 
-            while(!miner.getisSleep() || !billy.getisSleep()){
-            if(!miner.getisSleep()){
-                    miner.BeginDay();
-            }
-            if(!billy.getisSleep()){
-                billy.ChangeTest();
-            }
-        }
             iterations++;
             miner.reset();
             billy.setIsSleep(false);

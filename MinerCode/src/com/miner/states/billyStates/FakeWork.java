@@ -1,12 +1,11 @@
 package com.miner.states.billyStates;
 
-import com.miner.states.State;
 import com.miner.chars.*;
+import com.miner.states.State;
 
-public class WalkOnFarm implements State<Billy>{
+public class FakeWork implements State<Billy>{
+    private static FakeWork instance=null;
 
-    private static WalkOnFarm instance=null;
-    
     @Override
     public void Enter(Billy npc) {
 
@@ -27,10 +26,11 @@ public class WalkOnFarm implements State<Billy>{
         throw new UnsupportedOperationException("Error");
     }
 
-    public static WalkOnFarm getInstance(){
+    public static FakeWork getInstance(){
         if(instance==null){
-            instance=new WalkOnFarm();
+            instance=new FakeWork();
         }
         return instance;
     }
+
 }
