@@ -1,0 +1,55 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "args": [
+                "-display","gui"
+            ],
+            "mainClass": "pacman.Game",
+            "projectName": "Pacman_31b1468a"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "args": [
+                "-display gui"
+            ],
+            "mainClass": "pacman.Game",
+            "projectName": "Pacman_70723768"
+        },
+        {
+            "type": "java",
+            "name": "LocationSet",
+            "request": "launch",
+            "mainClass": "pacman.LocationSet",
+            "projectName": "Pacman_70723768"
+        },
+        {
+            "type": "java",
+            "name": "PacManGUI",
+            "request": "launch",
+            "mainClass": "pacman.PacManGUI",
+            "projectName": "Pacman_70723768"
+        },
+        {
+            "type": "java",
+            "name": "PriorityQueue",
+            "request": "launch",
+            "mainClass": "util.PriorityQueue",
+            "projectName": "Pacman_70723768"
+        }
+    ]
+}
