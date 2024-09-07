@@ -9,7 +9,7 @@
             "name": "Game",
             "request": "launch",
             "args": [
-                "-display","gui"
+                "-display","gui","-ghosts","red,pink,cyan,orange" 
             ],
             "mainClass": "pacman.Game",
             "projectName": "Pacman_31b1468a"
@@ -25,7 +25,7 @@
             "name": "Game",
             "request": "launch",
             "args": [
-                "-display gui"
+                "-display","gui","-ghosts","ghosts.Red,ghosts.Pink,ghosts.Cyan,ghosts.Orange" 
             ],
             "mainClass": "pacman.Game",
             "projectName": "Pacman_70723768"

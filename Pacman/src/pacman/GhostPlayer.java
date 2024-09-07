@@ -2,6 +2,11 @@ package pacman;
 
 import java.awt.Color;
 import java.util.List;
+
+import ghosts.EntityManager;
+import ghosts.Messages;
+import ghosts.StateMachine;
+
 import java.util.ArrayList;
 import util.Pair;
 
@@ -16,6 +21,16 @@ public abstract class GhostPlayer {
   private String name =  "";
 	
   public abstract Move chooseMove(Game game, int ghostIndex);
+  public abstract StateMachine<?> getStateMachine();
+
+  public GhostPlayer(String name){
+        this.name=name;
+        EntityManager.getInstance().newEntityRegister(this);
+  }
+
+  public boolean treatMessage(Messages message){
+    return getStateMachine().treatMessage(message);
+}
   
   /* Default implementation for deterministic ghosts...will be overridden
    * in nondeterministic ghosts...

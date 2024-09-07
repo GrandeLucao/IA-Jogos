@@ -1,6 +1,6 @@
 package pacman;
 
-import ghosts.BasicGhostPlayer;
+import ghosts.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -896,6 +896,7 @@ public class Game {
     if (argMap.containsKey("-ghosts")) {
       String ghostTypes = (String) argMap.get("-ghosts");
       String[] ghostArray = ghostTypes.split(",");
+      System.out.println(ghostArray);
       for (; ghostIndex < ghostArray.length; ghostIndex++) {
         String name = ghostIndex + ghostArray[ghostIndex];
         Color color = Color.LIGHT_GRAY;
@@ -978,6 +979,8 @@ public class Game {
     System.err.println("Time:   " + stats[2]);
   }
 }
+
+
 
 //class PlayerThread extends Thread {
 //
