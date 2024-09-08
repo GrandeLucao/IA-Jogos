@@ -956,10 +956,10 @@ public class Game {
             color = Color.GRAY;
             break;
         }
-        GhostPlayer ghost = new BasicGhostPlayer();
+        /*GhostPlayer ghost = new BasicGhostPlayer();
         ghost.setColor(color);
         ghost.setName(name);
-        ghostPlayers.add(ghost);
+        ghostPlayers.add(ghost); */
       }
     }
     System.err.println("PacMan: " + pacMan);

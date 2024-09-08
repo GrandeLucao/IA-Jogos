@@ -1,16 +1,9 @@
-package ghosts;
+package ghosts.Red;
 
-import java.util.List;
+import ghosts.Messages;
+import ghosts.States;
 
-import pacman.Game;
-import pacman.GhostPlayer;
-import pacman.Location;
-import pacman.Move;
-import pacman.State;
-import util.*;
-
-
-public class StalkingGhostPlayer implements States<GhostPlayer> {
+public class StalkerState implements States<Red> {
   
   /**
    * Chooses a move deterministically based on the last State in the history.
@@ -18,22 +11,24 @@ public class StalkingGhostPlayer implements States<GhostPlayer> {
    * This means that this ghost can reverse direction.
    */
 
-  public void Move(GhostPlayer ghost){
+  private static StalkerState instance=null;
+
+  public void Move(Red ghost){
     
   }
 
   @Override
-  public void Enter(GhostPlayer ghost) {
+  public void Enter(Red ghost) {
 
   }
 
   @Override
-  public void Exit(GhostPlayer ghost) {
+  public void Exit(Red ghost) {
 
   }
 
   @Override
-  public boolean onGetMessage(GhostPlayer npc, Messages message) {
+  public boolean onGetMessage(Red npc, Messages message) {
     if(message.getStringMessage().compareTo("1quad")==0){
       return true;
   }else if(message.getStringMessage().compareTo("2quad")==0){
@@ -43,6 +38,13 @@ public class StalkingGhostPlayer implements States<GhostPlayer> {
   }else if(message.getStringMessage().compareTo("4quad")==0){
   return true;
   }else{return false;}
+    }
+
+    public static StalkerState getInstance(){
+        if(instance==null){
+            instance=new StalkerState();
+        }
+        return instance;
     }
 
 }
