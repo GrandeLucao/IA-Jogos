@@ -1,6 +1,9 @@
 package ghosts.Cyan;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 
 import ghosts.StateMachine;
 import pacman.Game;
@@ -8,11 +11,13 @@ import pacman.GhostPlayer;
 import pacman.Location;
 import pacman.Move;
 import pacman.State;
+import util.Pair;
 import util.Utils;
 
 public class Cyan extends GhostPlayer{
 
     private StateMachine<Cyan> stateMach;
+    private Random random = new Random();
 
     public Cyan() {
         super("cyan");
@@ -34,8 +39,28 @@ public class Cyan extends GhostPlayer{
         int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
         return moves.get(moveIndex);
     }else {
-      return null;
+          List<Pair<Move, Double>> distribution = getMoveDistribution(game, game.getCurrentState(), ghostIndex);
+          double dart = random.nextDouble();
+          double sum = 0.0;
+          try {
+            for(Pair<Move, Double> pair : distribution) {
+                  return pair.first();
+            }
+            throw new RuntimeException("No move selected in" + this.getClass().getName() + " for 'dart'=" + dart);
+          } catch(RuntimeException re) {}
+          return null;
+        }
     }
+    
+
+    public List<Pair<Move, Double>> getMoveDistribution(Game game, State state, int ghostIndex) {
+      List<Pair<Move, Double>> distribution = new ArrayList<Pair<Move, Double>>();
+      List<Move> legalMoves = Game.getLegalGhostMoves(state, ghostIndex);
+      double uniformProb = 1.0 / (double)legalMoves.size();
+      for(Move move : legalMoves) {
+          distribution.add(new Pair<Move, Double>(move, uniformProb));
+      }
+      return distribution;
     }
 
     @Override
