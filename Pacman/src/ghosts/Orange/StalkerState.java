@@ -30,6 +30,7 @@ public class StalkerState implements States<Orange> {
   @Override
   public boolean onGetMessage(Orange npc, Messages message) {
     if(message.getStringMessage().compareTo("2quad")!=0){
+      System.out.println("foda2");
       npc.getStateMachine().changeState(RandomState.getInstance());
       return true;
     }else{return false;}

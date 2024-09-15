@@ -2,6 +2,7 @@ package ghosts.Cyan;
 
 import ghosts.Messages;
 import ghosts.States;
+import pacman.Game;
 
 
 public class StalkerState implements States<Cyan> {

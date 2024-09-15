@@ -38,18 +38,24 @@ public class Cyan extends GhostPlayer{
         }
         int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
         return moves.get(moveIndex);
-    }else {
-          List<Pair<Move, Double>> distribution = getMoveDistribution(game, game.getCurrentState(), ghostIndex);
-          double dart = random.nextDouble();
-          double sum = 0.0;
-          try {
-            for(Pair<Move, Double> pair : distribution) {
-                  return pair.first();
-            }
-            throw new RuntimeException("No move selected in" + this.getClass().getName() + " for 'dart'=" + dart);
-          } catch(RuntimeException re) {}
-          return null;
+      }else if(stateMach.getCurrentState()==IdleState.getInstance()) {
+          return Move.NONE;
         }
+      else{
+        List<Pair<Move, Double>> distribution = getMoveDistribution(game, game.getCurrentState(), ghostIndex);
+        double dart = random.nextDouble();
+        double sum = 0.0;
+        try {
+          for(Pair<Move, Double> pair : distribution) {
+              sum += pair.second();
+              if(sum >= dart) {
+                return pair.first();
+              }
+          }
+          throw new RuntimeException("No move selected in" + this.getClass().getName() + " for 'dart'=" + dart);
+        } catch(RuntimeException re) {}
+        return null;
+      }
     }
     
 

@@ -3,6 +3,8 @@ package ghosts.Red;
 import java.util.List;
 import java.util.Random;
 
+import ghosts.EntityManager;
+import ghosts.MessageDispenser;
 import ghosts.StateMachine;
 
 import java.util.ArrayList;
@@ -20,14 +22,17 @@ public class Red extends GhostPlayer{
 
     private StateMachine<Red> stateMach;
     private Random random = new Random();
+    int dots;
 
     public Red() {
         super("red");
         stateMach=new StateMachine<Red>(this);
         stateMach.setCurrentState(StalkerState.getInstance());
+        //dots=Game.getCurrentState().getDotLocations().size();
     }
 
     public Move chooseMove(Game game, int ghostIndex) {
+         checkThings(game);
         if(stateMach.getCurrentState()==StalkerState.getInstance()){
           State state = game.getCurrentState();
           List<Move> moves = game.getLegalGhostMoves(ghostIndex);
@@ -65,6 +70,27 @@ public class Red extends GhostPlayer{
             distribution.add(new Pair<Move, Double>(move, uniformProb));
         }
         return distribution;
+      }
+
+      public void checkThings(Game game){
+        //pega o quadrante
+        if(game.getCurrentState().getPacManLocation().getX()>=12){
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "2quad", null);
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "", null);
+        }
+        if(game.getCurrentState().getPacManLocation().getX()<12){
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "1quad", null);
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "", null);
+        }   
+        
+        //pega o tanto de tots remnescentes
+        if(game.getCurrentState().getDotLocations().size()<123){
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "half", null);
+        }else if(game.getCurrentState().getDotLocations().size()<98){
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "40p", null);
+        }else if(game.getCurrentState().getDotLocations().size()<74){
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "30p", null);
+        }
       }
 
     @Override

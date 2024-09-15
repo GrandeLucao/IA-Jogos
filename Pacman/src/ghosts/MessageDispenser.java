@@ -12,7 +12,7 @@ public class MessageDispenser {
 
     public void deliverMessage(GhostPlayer recipient, Messages message){
         if(!recipient.treatMessage(message));{
-            System.out.println("Error");
+            //System.out.println("Error");
         }
     }
 

@@ -30,8 +30,9 @@ public class IdleState implements States<Cyan> {
   @Override
   public boolean onGetMessage(Cyan npc, Messages message) {
     if(message.getStringMessage().compareTo("half")==0){
+        System.out.println(message.getStringMessage());
         npc.getStateMachine().changeState(StalkerState.getInstance());
-      return true;
+        return true;
   }else{return false;}
     }
 

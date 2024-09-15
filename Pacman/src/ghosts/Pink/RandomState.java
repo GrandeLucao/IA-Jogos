@@ -24,9 +24,15 @@ public class RandomState implements States<Pink> {
   @Override
   public boolean onGetMessage(Pink npc, Messages message) {
     if(message.getStringMessage().compareTo("1quad")==0){
+      System.out.println("pink");
       npc.getStateMachine().changeState(StalkerState.getInstance());
-      return true;      
-  }else{return false;}
+      return true;   
+    }
+      if(message.getStringMessage().compareTo("30p")==0){
+          System.out.println(message.getStringMessage());
+          npc.getStateMachine().changeState(StalkerState.getInstance());
+          return true; 
+    }else{return false;}
     }
 
     public static RandomState getInstance(){

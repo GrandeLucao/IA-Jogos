@@ -31,6 +31,7 @@ public class StalkerState implements States<Pink> {
   @Override
   public boolean onGetMessage(Pink npc, Messages message) {
     if(message.getStringMessage().compareTo("1quad")!=0){
+      System.out.println("foda1");
       npc.getStateMachine().changeState(RandomState.getInstance());
       return true;
     }else{return false;}
