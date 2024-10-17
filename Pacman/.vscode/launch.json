@@ -9,7 +9,9 @@
             "name": "Game",
             "request": "launch",
             "args": [
-                "-display","gui","-ghosts","ghosts.Red.Red,ghosts.Pink.Pink,ghosts.Cyan.Cyan,ghosts.Orange.Orange" 
+                "-display","gui",
+                "-ghosts","ghosts.Red.Red,ghosts.Pink.Pink,ghosts.Cyan.Cyan,ghosts.Orange.Orange" ,
+                "-pacman","player.SimplePacManPlayer"
             ],
             "mainClass": "pacman.Game",
             "projectName": "Pacman_31b1468a"
@@ -25,7 +27,9 @@
             "name": "Game",
             "request": "launch",
             "args": [
-                "-display","gui","-ghosts","ghosts.Red.Red,ghosts.Pink.Pink,ghosts.Cyan.Cyan,ghosts.Orange.Orange" 
+                "-display","gui",
+                "-ghosts","ghosts.Red.Red,ghosts.Pink.Pink,ghosts.Cyan.Cyan,ghosts.Orange.Orange", 
+                "-pacman","player.SimplePacManPlayer"
             ],
             "mainClass": "pacman.Game",
             "projectName": "Pacman_70723768"
