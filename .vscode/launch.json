@@ -6,42 +6,37 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Game",
-            "request": "launch",
-            "args": [
-                "-display", "gui",
-                "-ghosts", "ghosts.Red.Red,ghosts.Pink.Pink,ghosts.Cyan.Cyan,ghosts.Orange.Orange",
-                "-pacman","player.SimplePacManPlayer"
-            ],
-            "mainClass": "pacman.Game",
-            "projectName": "Pacman_73335d74"
-        },
-        {
-            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
         },
         {
             "type": "java",
+            "name": "Game",
+            "request": "launch",
+            "mainClass": "pacman.Game",
+            "projectName": "IA-Jogos_102d1c3"
+        },
+        {
+            "type": "java",
             "name": "LocationSet",
             "request": "launch",
             "mainClass": "pacman.LocationSet",
-            "projectName": "Pacman_70723768"
+            "projectName": "IA-Jogos_102d1c3"
         },
         {
             "type": "java",
             "name": "PacManGUI",
             "request": "launch",
             "mainClass": "pacman.PacManGUI",
-            "projectName": "Pacman_70723768"
+            "projectName": "IA-Jogos_102d1c3"
         },
         {
             "type": "java",
             "name": "PriorityQueue",
             "request": "launch",
             "mainClass": "util.PriorityQueue",
-            "projectName": "Pacman_70723768"
+            "projectName": "IA-Jogos_102d1c3"
         }
     ]
 }
