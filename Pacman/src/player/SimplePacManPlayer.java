@@ -52,12 +52,11 @@ public class SimplePacManPlayer implements PacManPlayer {
       
       //Adiciona ao Counter o �ltimo estado e sua respectiva avalia��o. 
       scores.setCount(m, stateScore + turnaroundPenalty); 
-      
     }
     
     //Utiliza uma fun��o "soft-max" para normalizar os valores:
     scores = scores.exp().normalize(); 
-    Move move = scores.sampleFromDistribution(random); 
+    Move move = scores.argmax(); 
     
     //Armazena o �ltimo movimento feito:
     lastMove = move; 
