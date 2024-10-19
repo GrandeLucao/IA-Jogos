@@ -7,7 +7,7 @@ import pacman.*;
  * @author grenager
  *
  */
-public class DFSPacManPlayer implements PacManPlayer, StateEvaluator {
+public class DFSPacManPlayer implements PacManPlayer {
 
   /**
    * Chooses a Move for Pac-Man in the Game.
