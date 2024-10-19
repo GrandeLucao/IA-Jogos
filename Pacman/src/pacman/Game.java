@@ -380,11 +380,11 @@ public class Game {
      * @return
      */
   public static List<State> projectPacManLocation(State s, Move pacManMove, int maxLength) {
-    List<State> projectedStates = new ArrayList<State>();
-    State curr = getNextState(s, pacManMove);
-    projectedStates.add(curr);
-    List<Move> legalMoves = Game.getLegalPacManMoves(curr);
-    legalMoves.remove(pacManMove.getOpposite());
+    List<State> projectedStates = new ArrayList<State>(); //criar lista
+    State curr = getNextState(s, pacManMove);  //pega o prox state
+    projectedStates.add(curr);  //add o next stage na lista
+    List<Move> legalMoves = Game.getLegalPacManMoves(curr); //pega os movimentos possiveis na proximo state
+    legalMoves.remove(pacManMove.getOpposite()); //remove a volta
     int length = 0;
     while (!isFinal(curr) && legalMoves.size()==1 && length<maxLength) { // repeat this move
       // until the legal moves

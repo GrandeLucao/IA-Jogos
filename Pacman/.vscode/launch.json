@@ -11,7 +11,7 @@
             "args": [
                 "-display", "gui",
                 "-ghosts", "ghosts.Red.Red,ghosts.Pink.Pink,ghosts.Cyan.Cyan,ghosts.Orange.Orange",
-                "-pacman","player.SimplePacManPlayer"
+                "-pacman","player.Equipe22BuscaGanaciosa"
             ],
             "mainClass": "pacman.Game",
             "projectName": "Pacman_73335d74"
