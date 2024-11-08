@@ -31,8 +31,9 @@ public class StalkerState implements States<Cyan> {
 
   @Override
   public boolean onGetMessage(Cyan npc, Messages message) {
-    if(message.getStringMessage().compareTo("")==0){
-      return true;
+    if(message.getStringMessage().compareTo("scatter")==0){
+        npc.getStateMachine().changeState(ScatterState.getInstance());
+        return true;
   }else{return false;}
     }
 

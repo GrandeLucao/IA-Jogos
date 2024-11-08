@@ -21,7 +21,7 @@ public class Equipe22BuscaGanaciosa implements PacManPlayer{
         for(Move m:legalMoves){            
             List<State> stateList = Game.getProjectedStates(s, m); 
             State last = stateList.get(stateList.size() - 1);
-            double stateScore = StateEvaluator.evaluateState4(s, last);
+            double stateScore = StateEvaluator.evaluateState1(s, last);
             double turnaroundPenalty = (lastMove == m.getOpposite() ? -10.0 : 0.0);
             scores.setCount(m, stateScore + turnaroundPenalty); 
             

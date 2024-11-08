@@ -21,7 +21,7 @@ public class Pink extends GhostPlayer{
     public Pink() {
         super("pink");
         stateMach=new StateMachine<Pink>(this);
-        stateMach.setCurrentState(RandomState.getInstance());
+        stateMach.setCurrentState(StalkerState.getInstance());
     }
 
     public Move chooseMove(Game game, int ghostIndex) {
@@ -31,9 +31,11 @@ public class Pink extends GhostPlayer{
         if (moves.isEmpty()) return null;
         double[] distances = new double[moves.size()];
         Location pacManLoc = state.getPacManLocation();
+        List<Move> pacLegalMoves=game.getLegalPacManMoves();
+        List<State> pacMoves=game.projectPacManLocation(state, pacLegalMoves.getFirst(), 4);
         for (int i=0; i<distances.length; i++) {
-          Location newLoc = Game.getNextLocation(state.getGhostLocations().get(ghostIndex), moves.get(i));
-          distances[i] = Location.euclideanDistance(pacManLoc, newLoc);
+          Location newLoc = Game.getNextLocation(pacMoves.getLast().getPacManLocation(), moves.get(i));
+          distances[i] = Location.euclideanDistance(state.getGhostLocations().get(ghostIndex), newLoc);
         }
         int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
         return moves.get(moveIndex);
@@ -52,6 +54,22 @@ public class Pink extends GhostPlayer{
           } catch(RuntimeException re) {}
           return null;
         }
+        
+        else if(stateMach.getCurrentState()==ScatterState.getInstance()){
+          State state = game.getCurrentState();
+          List<Move> moves = game.getLegalGhostMoves(ghostIndex);
+          if (moves.isEmpty()) return null;
+          double[] distances = new double[moves.size()];
+          Location outBoundsLoc= new Location(0,32);
+          for (int i=0; i<distances.length; i++) {
+            Location newLoc = Game.getNextLocation(state.getGhostLocations().get(ghostIndex), moves.get(i));
+            distances[i] = Location.euclideanDistance(outBoundsLoc, newLoc);
+          }
+          int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
+          return moves.get(moveIndex);
+        }
+        
+        
         else{return null;}
     }
 

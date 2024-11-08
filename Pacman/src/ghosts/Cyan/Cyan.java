@@ -41,6 +41,22 @@ public class Cyan extends GhostPlayer{
       }else if(stateMach.getCurrentState()==IdleState.getInstance()) {
           return Move.NONE;
         }
+        
+        else if(stateMach.getCurrentState()==ScatterState.getInstance()){
+          State state = game.getCurrentState();
+          List<Move> moves = game.getLegalGhostMoves(ghostIndex);
+          if (moves.isEmpty()) return null;
+          double[] distances = new double[moves.size()];
+          Location outBoundsLoc= new Location(32,-2);
+          for (int i=0; i<distances.length; i++) {
+            Location newLoc = Game.getNextLocation(state.getGhostLocations().get(ghostIndex), moves.get(i));
+            distances[i] = Location.euclideanDistance(outBoundsLoc, newLoc);
+          }
+          int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
+          return moves.get(moveIndex);
+        }
+        
+        
       else{
         List<Pair<Move, Double>> distribution = getMoveDistribution(game, game.getCurrentState(), ghostIndex);
         double dart = random.nextDouble();

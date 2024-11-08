@@ -1,10 +1,10 @@
-package ghosts.Cyan;
+package ghosts.Orange;
 
 import ghosts.EntityManager;
 import ghosts.Messages;
 import ghosts.States;
 
-public class IdleState implements States<Cyan> {
+public class IdleState implements States<Orange> {
   
   /**
    * Chooses a move deterministically based on the last State in the history.
@@ -14,22 +14,22 @@ public class IdleState implements States<Cyan> {
 
   private static IdleState instance=null;
 
-  public void Move(Cyan ghost){
+  public void Move(Orange ghost){
     
   }
 
   @Override
-  public void Enter(Cyan ghost) {
+  public void Enter(Orange ghost) {
 
   }
 
   @Override
-  public void Exit(Cyan ghost) {
+  public void Exit(Orange ghost) {
 
   }
 
   @Override
-  public boolean onGetMessage(Cyan npc, Messages message) {
+  public boolean onGetMessage(Orange npc, Messages message) {
     if(message.getStringMessage().compareTo("scatter")==0){
         npc.getStateMachine().changeState(ScatterState.getInstance());
         return true;

@@ -59,7 +59,6 @@ public static double evaluateState4(State s, State next){
   score += s.getDotLocations().size(); // more dots left on the board is bad
   score+= next.getDotLocations().size();
   score+=getMaxDistance(pacManLocation, s.getGhostLocations());
-  System.out.println(score);
   return score;
 }
 

@@ -23,16 +23,23 @@ public class Red extends GhostPlayer{
     private StateMachine<Red> stateMach;
     private Random random = new Random();
     int dots;
+    boolean cyanAct,orangeAct;
+    boolean scatterActive,chaseActive;
+    private long createdMillis;
 
     public Red() {
         super("red");
         stateMach=new StateMachine<Red>(this);
-        stateMach.setCurrentState(StalkerState.getInstance());
-        //dots=Game.getCurrentState().getDotLocations().size();
+        stateMach.setCurrentState(ScatterState.getInstance());
+        cyanAct=false;
+        orangeAct=false;
+        createdMillis=System.currentTimeMillis();
+        scatterActive=true;
     }
 
     public Move chooseMove(Game game, int ghostIndex) {
-         checkThings(game);
+        updateTimer(game,createdMillis);
+        checkThings(game);
         if(stateMach.getCurrentState()==StalkerState.getInstance()){
           State state = game.getCurrentState();
           List<Move> moves = game.getLegalGhostMoves(ghostIndex);
@@ -45,7 +52,23 @@ public class Red extends GhostPlayer{
           }
           int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
           return moves.get(moveIndex);
-        }else{
+        }
+        
+        else if(stateMach.getCurrentState()==ScatterState.getInstance()){
+          State state = game.getCurrentState();
+          List<Move> moves = game.getLegalGhostMoves(ghostIndex);
+          if (moves.isEmpty()) return null;
+          double[] distances = new double[moves.size()];
+          Location outBoundsLoc= new Location(32,32);
+          for (int i=0; i<distances.length; i++) {
+            Location newLoc = Game.getNextLocation(state.getGhostLocations().get(ghostIndex), moves.get(i));
+            distances[i] = Location.euclideanDistance(outBoundsLoc, newLoc);
+          }
+          int moveIndex = Utils.argmin(distances); // the move that minimizes the distance to PacMan
+          return moves.get(moveIndex);
+        }
+        
+        else {
           List<Pair<Move, Double>> distribution = getMoveDistribution(game, game.getCurrentState(), ghostIndex);
           double dart = random.nextDouble();
           double sum = 0.0;
@@ -73,6 +96,7 @@ public class Red extends GhostPlayer{
       }
 
       public void checkThings(Game game){
+        /*
         //pega o quadrante
         if(game.getCurrentState().getPacManLocation().getX()>=12){
           MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "2quad", null);
@@ -81,15 +105,54 @@ public class Red extends GhostPlayer{
         if(game.getCurrentState().getPacManLocation().getX()<12){
           MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "1quad", null);
           MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "", null);
-        }   
+        }  
+        */ 
         
         //pega o tanto de tots remnescentes
-        if(game.getCurrentState().getDotLocations().size()<123){
-          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "half", null);
-        }else if(game.getCurrentState().getDotLocations().size()<98){
-          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "40p", null);
-        }else if(game.getCurrentState().getDotLocations().size()<74){
-          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "30p", null);
+        if(game.getCurrentState().getDotLocations().size()<216 && !cyanAct){
+          if(scatterActive)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "scatter", null);
+          if(chaseActive)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "chase", null);
+          cyanAct=true;
+        }
+        if(game.getCurrentState().getDotLocations().size()<162 && !orangeAct){
+          if(scatterActive)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "scatter", null);
+          if(chaseActive)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "chase", null);
+          orangeAct=true;
+        }
+
+      }
+
+      public void updateTimer(Game game, long OGmillis){
+        long nowMillis=System.currentTimeMillis();
+        int timer=(int)(nowMillis-OGmillis)/1000;
+        System.out.println(timer);
+        if(timer>=8 && scatterActive){
+          createdMillis=System.currentTimeMillis();
+          timer=0;
+          chaseActive=true;
+          scatterActive=false;
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "chase", null);
+          if(orangeAct)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "chase", null);
+          if(cyanAct)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "chase", null);
+          stateMach.setCurrentState(StalkerState.getInstance());
+        }
+        if(timer>=21 && chaseActive){
+          createdMillis=System.currentTimeMillis();
+          timer=0;
+          chaseActive=false;
+          scatterActive=true;
+          //MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("pink"), "scatter", null);
+          if(orangeAct)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("orange"), "scatter", null);
+          if(cyanAct)
+          MessageDispenser.getInstance().DispatchMessage(this, EntityManager.getInstance().getEntity("cyan"), "scatter", null);
+          stateMach.setCurrentState(ScatterState.getInstance());
         }
       }
 
@@ -97,5 +160,15 @@ public class Red extends GhostPlayer{
     public StateMachine<Red> getStateMachine() {
         return stateMach;        
     }
+
+    public boolean isScatterActive() {
+      return scatterActive;
+    }
+
+    public boolean isChaseActive() {
+      return chaseActive;
+    }
+
+    
 
 }
