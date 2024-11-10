@@ -46,7 +46,8 @@ public class Game {
 			// Define player 2 class
 			if (displayOtello != null) {
 //				player2 = new players.RandomPlayer(2);
-				player2 = new players.HumanPlayerDisplay();
+				//player2 = new players.HumanPlayerDisplay();
+				player2 = new players.MinimaxPlayer();
 			} else {
 				player2 = new players.HumanPlayer();
 			}
@@ -220,4 +221,6 @@ public class Game {
 	public static void closeDisplay() {
 		displayOtello.closeDisplay();
 	}
+
+
 }
