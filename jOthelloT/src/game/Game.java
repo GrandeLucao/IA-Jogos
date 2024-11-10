@@ -38,8 +38,9 @@ public class Game {
 		case 0:
 			game = new OthelloGame();
 			// Define player 1 class
-			player = new players.RandomPlayer();
+			//player = new players.RandomPlayer();
 //			player = new players.HumanPlayerDisplay();
+			player = new players.GanaciosoPlayer();
 			player.setBoardMark(X);
 			player.setOpponentBoardMark(O);
 			player.setGame(game);
