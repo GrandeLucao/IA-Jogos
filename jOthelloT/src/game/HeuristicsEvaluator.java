@@ -46,13 +46,13 @@ public class HeuristicsEvaluator {
             for(int cell:row){
                 if(ID==1 ){
                     if(cell==1){ //inimigo
-                    score+=3;
-                    }else{score+=0.5;}                   
+                    score-=3;
+                    }else{score+=0.001;}                   
                 }
                 if(ID==0 ){
                     if(cell==-1){//inimigo
-                    score+=3;
-                    }else{score+=0.5;}
+                    score-=3;
+                    }else{score+=0.001;}
                     
                 }
             }

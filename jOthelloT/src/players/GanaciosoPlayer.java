@@ -80,7 +80,7 @@ public class GanaciosoPlayer extends AbstractPlayer{
     }
 
     Double evaluateMove(Move move){
-        Double score=HeuristicsEvaluator.heuristic1(move,0);
+        Double score=HeuristicsEvaluator.heuristic3(move,0);
         return score;
     }
 

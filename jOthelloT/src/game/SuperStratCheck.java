@@ -34,7 +34,6 @@ public class SuperStratCheck {
                 int[][] moveT={{move.getBoardSquare().getRow(),move.getBoardSquare().getCol()}};
                 for(int i=0;i<avoidPieces.length;i++){
                     for(int j=0;j<avoidPieces[i].length;j++){
-                        System.out.println(avoidPieces[i][j]);
                         if(moveT[0][0]==avoidPieces[i][j] && moveT[0][1]==avoidPieces[i][j+1]){
                             return true;
                         }
