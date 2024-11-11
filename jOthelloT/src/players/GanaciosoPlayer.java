@@ -9,6 +9,7 @@ import game.BoardSquare;
 import game.HeuristicsEvaluator;
 import game.Move;
 import game.OthelloGame;
+import game.SuperStratCheck;
 
 public class GanaciosoPlayer extends AbstractPlayer{
 
@@ -30,8 +31,24 @@ public class GanaciosoPlayer extends AbstractPlayer{
         Double scoreToSend=0d;
         Map<Move, Double> movesScore=new HashMap<>();
         for(Move move:validMoves){
-            Double moveScore=ganacioso(move, depth);
-            movesScore.put(move,moveScore);
+            Move stratMove=SuperStratCheck.superStrat(move);
+            if(stratMove!=null){
+                return stratMove;
+            }
+        }
+        for(Move move:validMoves){
+            if(!SuperStratCheck.superStrat2(move)){
+                Double moveScore=ganacioso(move, depth);
+                movesScore.put(move,moveScore);
+            }
+        }
+
+        if(movesScore.isEmpty()){
+            for(Move move:validMoves){
+                Double moveScore=ganacioso(move, depth);
+                movesScore.put(move,moveScore);                
+            }
+
         }
 
         

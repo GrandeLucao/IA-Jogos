@@ -9,6 +9,7 @@ import game.BoardSquare;
 import game.HeuristicsEvaluator;
 import game.Move;
 import game.OthelloGame;
+import game.SuperStratCheck;
 
 public class MinimaxPlayer extends AbstractPlayer{
     int depth=3;
@@ -29,8 +30,23 @@ public class MinimaxPlayer extends AbstractPlayer{
         Double scoreToSend=0d;
         Map<Move, Double> movesScore=new HashMap<>();
         for(Move move:validMoves){
-            Double moveScore=minimax(move, depth, Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY, true);
-            movesScore.put(move,moveScore);
+            Move stratMove=SuperStratCheck.superStrat(move);
+            if(stratMove!=null){
+                return stratMove;
+            }
+        }
+        for(Move move:validMoves){
+            if(!SuperStratCheck.superStrat2(move)){
+                Double moveScore=minimax(move, depth, Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY, true);
+                movesScore.put(move,moveScore);
+            }
+        }
+        if(movesScore.isEmpty()){
+            for(Move move:validMoves){
+                Double moveScore=minimax(move, depth, Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY, true);
+                movesScore.put(move,moveScore);                
+            }
+
         }
 
         for(Map.Entry<Move, Double> entry:movesScore.entrySet()){
@@ -76,7 +92,7 @@ public class MinimaxPlayer extends AbstractPlayer{
     }
 
     Double evaluateMove(Move move){
-        Double score=HeuristicsEvaluator.heuristic2(move,1);
+        Double score=HeuristicsEvaluator.heuristic3(move,1);
         return score;
     }
 
